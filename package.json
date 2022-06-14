@@ -1,12 +1,27 @@
 {
   "name": "storybook-multi-toolbar",
   "version": "0.0.1",
-  "description": "",
+  "description": "Storybook addon to define multiple toggleable toolbar items",
   "main": "dist/preset.js",
   "types": "dist/@types/types",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "README.md"
   ],
+  "keywords": [
+    "storybook-addons",
+    "storybook"
+  ],
+  "author": "Kris Skarbo",
+  "license": "ISC",
+  "homepage": "https://github.com/Skarbo/storybook-multi-toolbar",
+  "bugs": {
+    "url": "https://github.com/Skarbo/storybook-multi-toolbar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Skarbo/storybook-multi-toolbar.git"
+  },
   "scripts": {
     "build": "npm run clean && NODE_ENV=production npm run build:files && npm run build:types",
     "build-storybook": "build-storybook",
@@ -19,8 +34,6 @@
     "storybook": "start-storybook -p 6006",
     "typecheck": "tsc --noEmit"
   },
-  "author": "Kris Skarbo",
-  "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.2",
@@ -43,8 +56,8 @@
     "typescript": "^4.7.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
