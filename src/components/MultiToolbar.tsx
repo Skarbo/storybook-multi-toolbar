@@ -12,8 +12,12 @@ const createToolbarValues = (
   return Object.entries(values).reduce((acc, [key, value]) => {
     acc[key] = value;
 
-    if (typeof value === 'string' && (value === 'true' || value === 'false')) {
-      acc[key] = value === 'true';
+    if (typeof value === 'string') {
+      try {
+        acc[key] = JSON.parse(value);
+      } catch (err) {
+        // ignore
+      }
     }
 
     return acc;
@@ -38,20 +42,37 @@ const MultiToolbar: React.FC<Props> = ({ toolbar }) => {
   const onChange = useCallback(
     (list: MultiToolbarList, value: unknown, param: string) => {
       const newValues = {
+        ...globals,
         [toolbar.param]: {
           ...values,
           [param]: value,
         },
       };
-
+      console.log('onChange', value, param, newValues);
       // toggle
       if (list.type === 'toggle') {
-        newValues[toolbar.param][param] = !values[param];
+        console.log('value', value, newValues[toolbar.param][param]);
+        if (typeof value === 'undefined') {
+          if (
+            Object.prototype.hasOwnProperty.call(
+              globals?.[toolbar.param],
+              param
+            )
+          ) {
+            delete newValues[toolbar.param][param];
+          } else {
+            newValues[toolbar.param][param] = true;
+          }
+        } else if (globals?.[toolbar.param]?.[param] === value) {
+          delete newValues[toolbar.param][param];
+        } else {
+          newValues[toolbar.param][param] = value;
+        }
       }
-
+      console.log('newValues', value, param, newValues);
       updateGlobals(newValues);
     },
-    [values]
+    [values, globals]
   );
 
   return (

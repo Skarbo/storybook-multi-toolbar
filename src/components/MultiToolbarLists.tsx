@@ -1,4 +1,4 @@
-import type { MultiToolbarList } from '../types';
+import type { MultiToolbarList, MultiToolbarListItemToggle } from '../types';
 import React, { Fragment } from 'react';
 import { IconKey, Icons, TooltipLinkList } from '@storybook/components';
 import { styled } from '@storybook/theming';
@@ -42,12 +42,20 @@ const MultiToolbarLists: React.FC<Props> = ({
 
         <TooltipLinkList
           links={list.items.map((item) => {
+            const param =
+              list.type === 'toggle'
+                ? (item as MultiToolbarListItemToggle).param
+                : list.param;
             let right = item.right || '';
-            let active = activeValue[list.param] == item.value;
+            let active = activeValue[param] == item.value;
 
             // toggle
             if (list.type === 'toggle') {
-              active = !!activeValue[item.param || list.param];
+              if (item.value !== undefined) {
+                active = activeValue[param] === item.value;
+              } else {
+                active = !!activeValue[param];
+              }
 
               // set right as check icon if no icon is set
               if (!item.right) {
@@ -62,12 +70,7 @@ const MultiToolbarLists: React.FC<Props> = ({
               left: item.left,
               right: createTextOrIcon(right),
               center: item.center,
-              onClick: () =>
-                onChange(
-                  list,
-                  item.value,
-                  list.type === 'toggle' ? item.param || list.param : list.param
-                ),
+              onClick: () => onChange(list, item.value, param),
             };
           })}
         />
