@@ -1,0 +1,57 @@
+{
+  "name": "storybook-multi-toolbar",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/preset.js",
+  "types": "dist/@types/types",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "npm run clean && NODE_ENV=production npm run build:files && npm run build:types",
+    "build-storybook": "build-storybook",
+    "build:files": "babel ./src --out-dir ./dist --extensions .ts --extensions .tsx",
+    "build:types": "tsc --project tsconfig.types.json",
+    "clean": "rm -rf ./dist",
+    "lint": "eslint \"./{src,.storybook,stories}/**/*.{ts,tsx}\"",
+    "prepare": "npm run lint && npm run typecheck && npm run build",
+    "preversion": "npm run prepare",
+    "storybook": "start-storybook -p 6006",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "Kris Skarbo",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@storybook/react": "^6.5.8",
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3.22.8",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  }
+}
