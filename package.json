@@ -1,6 +1,6 @@
 {
   "name": "storybook-multi-toolbar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Storybook addon to define multiple toggleable toolbar items",
   "main": "dist/preset.js",
   "types": "dist/@types/types",
